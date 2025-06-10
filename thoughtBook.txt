@@ -1,0 +1,5 @@
+- At the beginning, current topic id is null
+- When user sends first message, a topic is created
+- When the user clicks the new topic button, a new blank topic is created and current topic id is set to null.
+
+- When a topic in the chat history is clicked, that becomes the current topic ID.

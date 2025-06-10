@@ -7,7 +7,7 @@
     --bright-red-hover: #e63946;
     --light-taupe: #e8e1dc;
     --dark-grey: #666;
-    --brownish-red: #8b0000;
+    --reddish-brown: #8b0000;
     --very-dark-grey: #333;
     --hover-brown: #8b0000;
 }
@@ -58,7 +58,7 @@ body {
     margin-bottom: 10px;
 }
 
-.clear-history-btn {
+.new-chat-btn {
     background: var(--bright-red);
     color: var(--white);
     border: none;
@@ -70,7 +70,7 @@ body {
     transition: background 0.3s, transform 0.2s;
 }
 
-.clear-history-btn:hover {
+.new-chat-btn:hover {
     background: var(--bright-red-hover);
     transform: scale(1.05);
 }
@@ -158,7 +158,7 @@ body {
 }
 
 .message-content:hover {
-    transform: scale(1.02);
+    transform: scale(1.005);
 }
 
 .user .message-content {
@@ -236,7 +236,7 @@ body {
 
 .chat-input input[type="text"]:focus {
     border-color: var(--reddish-brown);
-    transform: scale(1.02);
+    transform: scale(1.005);
 }
 
 .chat-input input[type="file"] {
