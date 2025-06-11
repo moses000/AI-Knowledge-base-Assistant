@@ -25,6 +25,18 @@ body {
     overflow: hidden;
 }
 
+.hide-scrollbar {
+    scrollbar-width: none;
+  }
+  
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+  
+.hide-scrollbar {
+    overflow: auto;
+}
+
 .chat-container {
     width: 100vw;
     height: 100vh;
@@ -77,6 +89,7 @@ body {
 
 .history-item {
     background: var(--light-taupe); /* Light taupe */
+    margin-bottom: 10px;
     padding: 10px;
     border-radius: 8px;
     font-size: 0.85rem;
@@ -96,6 +109,11 @@ body {
     font-size: 0.75rem;
     color: var(--dark-grey);
     display: block;
+}
+
+.history-item .chat-title {
+    font-weight: 600;
+    font-size: 16px;
 }
 
 .chat-main {

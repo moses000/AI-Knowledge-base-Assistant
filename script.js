@@ -93,8 +93,12 @@ function updateChatList() {
 
   chatData.forEach(chat => {
     const item = document.createElement('div');
-    item.className = 'chat-item';
-    item.textContent = `${chat.title} - ${chat.lastMessage}`;
+    item.className = 'history-item';
+    const displayText = chat.lastMessage.length > 30 ? chat.lastMessage.substring(0, 27) + '...' : chat.lastMessage;
+    item.innerHTML = `
+      <div class="chat-title">${chat.title}</div>
+      <div class="chat-last_message">${displayText}</div>
+    `;
     item.addEventListener('click', () => openChat(chat.chat_id));
     chatListContainer.appendChild(item);
   });
@@ -115,13 +119,13 @@ window.onload = () => {
       (() => {
         const chat = new Chat("123", "Project Ideas");
         chat.addMessage("user", "Hello");
-        chat.addMessage("copilot", "Hi! What would you like to discuss?");
+        chat.addMessage("ai", "Hi! What would you like to discuss?");
         return chat;
       })(),
       (() => {
         const chat = new Chat("456", "Code Help");
         chat.addMessage("user", "How do I write a loop?");
-        chat.addMessage("copilot", "Here's an example of a loop in JS...");
+        chat.addMessage("ai", "Here's an example of a loop in JS...");
         return chat;
       })()
     ];
@@ -132,6 +136,12 @@ window.onload = () => {
   if (chatData.length) openChat(chatData[0].chat_id);
 
   sendBtn.addEventListener('click', sendMessage);
+
+  messageInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      sendBtn.click();
+    }
+  });
 
   newChatBtn.addEventListener('click', () => {
     const newId = Date.now().toString();
