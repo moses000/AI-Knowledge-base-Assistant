@@ -49,6 +49,22 @@ const loadFromLocalStorage = () => {
   });
 }
 
+const maxHeight = parseInt(window.getComputedStyle(messageInput).getPropertyValue('max-height'));
+
+messageInput.addEventListener('input', () => {
+  messageInput.style.height = 'auto'; // Reset height to shrink if needed
+
+  const scrollHeight = messageInput.scrollHeight;
+
+  if (scrollHeight <= maxHeight) {
+    messageInput.style.overflowY = 'hidden';
+    messageInput.style.height = `${scrollHeight}px`;
+  } else {
+    messageInput.style.overflowY = 'auto';
+    messageInput.style.height = `${maxHeight}px`; // Lock at max height
+  }
+});
+
 const addMessage = (text, sender = 'user') => {
   const currentChat = chatData.find(c => c.chat_id === currentChatId);
   if (!currentChat) return;
@@ -63,7 +79,9 @@ const sendMessage = () => {
   const text = messageInput.value.trim();
   if (!text) return;
 
-  addMessage(text, 'user');
+  const formattedText = text.replace(/\n/g, '<br>');
+
+  addMessage(formattedText, 'user');
   messageInput.value = '';
 
   showLoading();
@@ -114,32 +132,17 @@ function openChat(chatId) {
 window.onload = () => {
   loadFromLocalStorage();
 
-  if (!chatData.length) {
-    chatData = [
-      (() => {
-        const chat = new Chat("123", "Project Ideas");
-        chat.addMessage("user", "Hello");
-        chat.addMessage("ai", "Hi! What would you like to discuss?");
-        return chat;
-      })(),
-      (() => {
-        const chat = new Chat("456", "Code Help");
-        chat.addMessage("user", "How do I write a loop?");
-        chat.addMessage("ai", "Here's an example of a loop in JS...");
-        return chat;
-      })()
-    ];
-    saveToLocalStorage();
-  }
-
   updateChatList();
   if (chatData.length) openChat(chatData[0].chat_id);
 
   sendBtn.addEventListener('click', sendMessage);
 
-  messageInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
+  messageInput.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+
       sendBtn.click();
+      messageInput.style.height = 'auto'; // reset height after sending
     }
   });
 
@@ -152,7 +155,6 @@ window.onload = () => {
     openChat(newId);
   });
 };
-
 
 const showLoading = () => {
   const loadingDiv = document.createElement('div');

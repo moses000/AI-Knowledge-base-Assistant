@@ -133,9 +133,10 @@ body {
 }
 
 .chat-header img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    /* border-radius: 50%; */
+    aspect-ratio: auto;
+    height: 50px;
+    
 }
 
 .chat-header h2 {
@@ -145,6 +146,7 @@ body {
 }
 
 .chat-body {
+    width: 100%;
     flex: 1;
     padding: 20px;
     overflow-y: auto;
@@ -231,38 +233,43 @@ body {
 }
 
 .chat-input {
-    padding: 15px;
     background: var(--white);
-    border-top: 1px solid var(--light-grey);
+    border-radius: 20px;
+    border: 1px solid var(--light-grey);
+    box-sizing: border-box;
+    margin: 0 20px 20px;
+    padding: 15px;
+
     display: flex;
-    gap: 8px;
-    align-items: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 10px;
+
     animation: slideUp 0.5s ease;
 }
 
-.chat-input input[type="text"] {
-    flex: 1;
+.chat-input #message-input {
+    width: 100%;
+    min-height: 1.5rem;
+    max-height: 15rem;
+    overflow-y: auto;
+    resize: none;
+    font-size: 1rem;
+    line-height: 1.5;
     padding: 10px;
-    border: 1px solid var(--light-grey);
-    border-radius: 20px;
+    border: none;
     outline: none;
-    font-size: 0.9rem;
-    transition: border-color 0.3s, transform 0.2s;
-    min-width: 150px;
+    border-radius: 12px;
+    box-sizing: border-box;
+    transition: height 0.2s ease;
 }
 
-.chat-input input[type="text"]:focus {
+/* .chat-input #message-input:focus {
     border-color: var(--reddish-brown);
     transform: scale(1.005);
-}
+} */
 
-.chat-input input[type="file"] {
-    display: none;
-}
-
-.chat-input button, .chat-input label {
-    padding: 8px;
+.chat-input button {
+    padding: 10px;
     background: var(--brown);
     color: var(--white);
     border: none;
@@ -274,13 +281,19 @@ body {
     transition: background 0.3s, transform 0.2s;
 }
 
-.chat-input button:hover, .chat-input label:hover {
+.chat-input button:hover {
     background: var(--hover-brown);
     transform: scale(1.1);
 }
 
-.chat-input .voice-active, .chat-input .tts-active {
-    background: var(--bright-red);
+.chat-input button svg {
+    fill: var(--white);
+}
+
+.chat-input-btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }
 
 @keyframes fadeIn {
